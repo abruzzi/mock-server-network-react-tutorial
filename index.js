@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require('morgan');
 
 const port = process.env.PORT || 1573;
 
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(morgan('combined'));
 
 const users = [
   {
@@ -49,20 +51,13 @@ const feeds = [
   },
   {
     id: "t2",
-    title: "Headless Component: a pattern for composing React UIs",
-    description:
-      "As React UI controls become more sophisticated, complex logic can get intertwined with the visual representation. This makes it hard to reason about the behavior of the component, hard to test it, and necessary to build similar components that need a different look. A Headless Component extracts all non-visual logic and state management, separating the brain of a component from its looks.",
-    category: "Technology",
-  },
-  {
-    id: "t3",
     title: "Why Web UI Development Is So Hard?",
     description:
       "The landscape of web UI development is fraught with challenges that extend beyond writing code and designing interfaces. The inherent language limitations, nuanced data management, async complexities, and often-ignored unhappy paths collectively make this a formidable field. Architectural decisions ...",
     category: "Technology",
   },
   {
-    id: "t4",
+    id: "t3",
     title: "The best beaches in Victoria that you won't want to miss",
     description:
       "Best known for its sand and surf Victoria, Australia, has no shortage of beautiful beaches. Here’s a guide to the best ones",
@@ -81,6 +76,34 @@ app.get("/users/:id", (req, res) => {
 
   setTimeout(() => {
     res.json(user);
+  }, 1000);
+});
+
+const ads = [
+  {
+    id: "a1",
+    title: "Summer Sale Extravaganza!",
+    content: "Get up to 50% off on all summer clothing. Dive into our exclusive summer collection and revamp your wardrobe!",
+    imageUrl: "https://example.com/images/summer-sale.jpg",
+    link: "https://example.com/summer-sale",
+    startDate: "2024-06-01",
+    endDate: "2024-07-31"
+  },
+  {
+    id: "a2",
+    title: "Tech Gadgets Galore: Unbeatable Deals!",
+    content: "Explore the latest tech gadgets at unbeatable prices. From smartphones to laptops, we've got everything tech enthusiasts need!",
+    imageUrl: "https://example.com/images/tech-gadgets.jpg",
+    link: "https://example.com/tech-deals",
+    startDate: "2024-09-10",
+    endDate: "2024-10-10"
+  }
+];
+
+
+app.get("/ads", (req, res) => {
+  setTimeout(() => {
+    res.json(ads);
   }, 1000);
 });
 
