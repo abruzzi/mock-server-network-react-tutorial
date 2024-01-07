@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const morgan = require('morgan');
+const morgan = require("morgan");
 
 const port = process.env.PORT || 1573;
 
@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 
 const users = [
   {
@@ -19,7 +19,7 @@ const users = [
   },
   {
     id: "u2",
-    name: "Alice Johnson",
+    name: "Abruzzi",
     bio: "Software Engineer",
     interests: ["Technology", "Reading", "Music"],
   },
@@ -34,6 +34,23 @@ const users = [
     name: "Carol White",
     bio: "UI/UX Designer",
     interests: ["Photography", "Technology", "Outdoors"],
+  },
+];
+
+const userDetails = [
+  {
+    id: "u1",
+    name: "Juntao Qiu",
+    twitter: "@JuntaoQiu",
+    bio: "Developer, Educator, Author",
+    homepage: "https://icodeit.com.au",
+  },
+  {
+    id: "u2",
+    name: "Abruzzi",
+    twitter: "@alice",
+    bio: "Software Engineer",
+    homepage: "https://icodeit.com.au",
   },
 ];
 
@@ -79,27 +96,42 @@ app.get("/users/:id", (req, res) => {
   }, 1000);
 });
 
+app.get("/users/:id/details", (req, res) => {
+  const userId = req.params.id;
+  const detail = userDetails.find((u) => u.id === userId);
+
+  if (!detail) {
+    res.status(404).send("User not found");
+    return;
+  }
+
+  setTimeout(() => {
+    res.json(detail);
+  }, 500);
+});
+
 const ads = [
   {
     id: "a1",
     title: "Summer Sale Extravaganza!",
-    content: "Get up to 50% off on all summer clothing. Dive into our exclusive summer collection and revamp your wardrobe!",
+    content:
+      "Get up to 50% off on all summer clothing. Dive into our exclusive summer collection and revamp your wardrobe!",
     imageUrl: "https://example.com/images/summer-sale.jpg",
     link: "https://example.com/summer-sale",
     startDate: "2024-06-01",
-    endDate: "2024-07-31"
+    endDate: "2024-07-31",
   },
   {
     id: "a2",
     title: "Tech Gadgets Galore: Unbeatable Deals!",
-    content: "Explore the latest tech gadgets at unbeatable prices. From smartphones to laptops, we've got everything tech enthusiasts need!",
+    content:
+      "Explore the latest tech gadgets at unbeatable prices. From smartphones to laptops, we've got everything tech enthusiasts need!",
     imageUrl: "https://example.com/images/tech-gadgets.jpg",
     link: "https://example.com/tech-deals",
     startDate: "2024-09-10",
-    endDate: "2024-10-10"
-  }
+    endDate: "2024-10-10",
+  },
 ];
-
 
 app.get("/ads", (req, res) => {
   setTimeout(() => {
