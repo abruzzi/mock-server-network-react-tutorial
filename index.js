@@ -48,14 +48,31 @@ const userDetails = [
   {
     id: "u2",
     name: "Abruzzi",
-    twitter: "@alice",
+    twitter: "@abruzzi",
     bio: "Software Engineer",
+    homepage: "https://icodeit.com.au",
+  },
+  {
+    id: "u3",
+    name: "Bob Smith",
+    twitter: "@bobsmith",
+    bio: "Frontend Developer, Photographer",
+    homepage: "https://icodeit.com.au",
+  },
+  {
+    id: "u4",
+    name: "Carol White",
+    twitter: "@carolwhite",
+    bio: "UI/UX Designer",
     homepage: "https://icodeit.com.au",
   },
 ];
 
 const relationship = {
   u1: ["u2", "u3", "u4"],
+  u2: ["u1"],
+  u3: ["u1"],
+  u4: ["u1"],
 };
 
 const feeds = [
@@ -82,34 +99,6 @@ const feeds = [
   },
 ];
 
-app.get("/users/:id", (req, res) => {
-  const userId = req.params.id;
-  const user = users.find((u) => u.id === userId);
-
-  if (!user) {
-    res.status(404).send("User not found");
-    return;
-  }
-
-  setTimeout(() => {
-    res.json(user);
-  }, 1000);
-});
-
-app.get("/users/:id/details", (req, res) => {
-  const userId = req.params.id;
-  const detail = userDetails.find((u) => u.id === userId);
-
-  if (!detail) {
-    res.status(404).send("User not found");
-    return;
-  }
-
-  setTimeout(() => {
-    res.json(detail);
-  }, 500);
-});
-
 const ads = [
   {
     id: "a1",
@@ -133,6 +122,36 @@ const ads = [
   },
 ];
 
+
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const user = users.find((u) => u.id === userId);
+
+  if (!user) {
+    res.status(404).send("User not found");
+    return;
+  }
+
+  setTimeout(() => {
+    res.json(user);
+  }, 1500);
+});
+
+app.get("/users/:id/details", (req, res) => {
+  const userId = req.params.id;
+  const detail = userDetails.find((u) => u.id === userId);
+
+  if (!detail) {
+    res.status(404).send("User not found");
+    return;
+  }
+
+  setTimeout(() => {
+    res.json(detail);
+  }, 500);
+});
+
+
 app.get("/ads", (req, res) => {
   setTimeout(() => {
     res.json(ads);
@@ -152,7 +171,7 @@ app.get("/users/:id/friends", (req, res) => {
 
   setTimeout(() => {
     res.json(friends);
-  }, 1200);
+  }, 1000);
 });
 
 app.get("/articles/:category", (req, res) => {
